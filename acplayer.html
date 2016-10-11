@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./acplayer.js"></script>
+    <link rel="stylesheet" href="./acplayer.css" media="screen" title="no title">
+    <script type="text/javascript">
+    $(function(){
+      var acplayer = $( 'audio' ).acPlayer();
+
+      $('#playpause').click(function(e){
+        if (acplayer.audioState == "paused") {
+          acplayer.play();
+        }
+        else{
+          acplayer.pause();
+          console.log("+++"+acplayer.getCurrentTime());
+        }
+      })
+    });
+    </script>
+    <body>
+      <section class="cover">
+        <div class="content">
+          <img id="img-rotate" class="rotate-img" src="http://p.d1xz.net/2016/09/21/14744414257933989.jpg" alt="" />
+          <a id="playpause" href="#" class="center acplayer-paused">
+            <span></span>
+          </a>
+        </div>
+      </section>
+      <audio preload="auto" controls>
+      				<source src="./BlueDucks_FourFlossFiveSix.mp3">
+      				<source src="./BlueDucks_FourFlossFiveSix.ogg">
+      				<source src="./BlueDucks_FourFlossFiveSix.wav">
+      </audio>
+  </body>
+</html>
