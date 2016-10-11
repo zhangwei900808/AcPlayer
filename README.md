@@ -47,4 +47,3 @@ javascript:
 * getCurrentTime
 * toTheTime
 
-## useage
