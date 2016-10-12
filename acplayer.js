@@ -3,8 +3,8 @@
 */
 
 (function($) {
-	alert(1)
-    var isTouch = 'ontouchstart' in window,
+	try {
+		var isTouch = 'ontouchstart' in window,
     eStart = isTouch ? 'touchstart': 'mousedown',
     eMove = isTouch ? 'touchmove': 'mousemove',
     eEnd = isTouch ? 'touchend': 'mouseup',
@@ -265,4 +265,10 @@
         //调用其方法
         return acPlayer.init();
     }
+	} catch (e) {
+		alert('zhangwei debug :'+e.message)
+	} finally {
+
+	}
+
 })(jQuery);
