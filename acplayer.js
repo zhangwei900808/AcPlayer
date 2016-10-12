@@ -4,8 +4,7 @@
 
 
 
-;(function( $, window, document, undefined )
-{
+(function($){
 	var isTouch		  = 'ontouchstart' in window,
 		eStart		  = isTouch ? 'touchstart'	: 'mousedown',
 		eMove		  = isTouch ? 'touchmove'	: 'mousemove',
@@ -278,4 +277,4 @@
 	   //调用其方法
 	   return acPlayer.init();
 	}
-})( jQuery, window, document );
+})(jQuery);
