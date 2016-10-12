@@ -30,17 +30,23 @@
       <script type="text/javascript" src="acplayer.js"></script>
       <script type="text/javascript">
       $(function(){
-        var acplayer = $( 'audio' ).acPlayer();
+        try {
+          var acplayer = $( 'audio' ).acPlayer();
 
-        $('#playpause').click(function(e){
-          if (acplayer.audioState == "paused") {
-            acplayer.play();
-          }
-          else{
-            acplayer.pause();
-            console.log("+++"+acplayer.getCurrentTime());
-          }
-        })
+          $('#playpause').click(function(e){
+            if (acplayer.audioState == "paused") {
+              acplayer.play();
+            }
+            else{
+              acplayer.pause();
+            }
+          })
+        } catch (e) {
+          alert(e.message);
+        } finally {
+
+        }
+
       });
       </script>
   </body>
