@@ -9,24 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
-    <script type="text/javascript" src="./acplayer.js"></script>
-    <link rel="stylesheet" href="./acplayer.css" media="screen" title="no title">
-    <script type="text/javascript">
-    $(function(){
-      var acplayer = $( 'audio' ).acPlayer();
 
-      $('#playpause').click(function(e){
-        if (acplayer.audioState == "paused") {
-          acplayer.play();
-        }
-        else{
-          acplayer.pause();
-          console.log("+++"+acplayer.getCurrentTime());
-        }
-      })
-    });
-    </script>
+    <link rel="stylesheet" href="./acplayer.css" media="screen" title="no title">
+
     <body>
       <section class="cover">
         <div class="content">
@@ -41,5 +26,22 @@
       				<source src="./BlueDucks_FourFlossFiveSix.ogg">
       				<source src="./BlueDucks_FourFlossFiveSix.wav">
       </audio>
+      <script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+      <script type="text/javascript" src="./acplayer.js"></script>
+      <script type="text/javascript">
+      $(function(){
+        var acplayer = $( 'audio' ).acPlayer();
+
+        $('#playpause').click(function(e){
+          if (acplayer.audioState == "paused") {
+            acplayer.play();
+          }
+          else{
+            acplayer.pause();
+            console.log("+++"+acplayer.getCurrentTime());
+          }
+        })
+      });
+      </script>
   </body>
 </html>
