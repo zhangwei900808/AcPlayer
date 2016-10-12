@@ -3,6 +3,7 @@
 */
 
 (function($) {
+	alert(1)
     var isTouch = 'ontouchstart' in window,
     eStart = isTouch ? 'touchstart': 'mousedown',
     eMove = isTouch ? 'touchmove': 'mousemove',
