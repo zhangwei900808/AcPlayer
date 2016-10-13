@@ -275,10 +275,7 @@
 
 		$.fn.acPlayer = function( options )
 		{
-			 //创建Beautifier的实体
-			 var acPlayer = new AcPlayer(this, options);
-			 //调用其方法
-			 return acPlayer.init();
+			alert(1)
 		}
 	} catch (e) {
 		alert('zw debug:'+e.message)
