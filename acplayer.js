@@ -267,7 +267,7 @@
 
 						 $this.replaceWith( thePlayer );
 					 });
-					 return this;
+					 return that;
 				 }
 				 };
 
