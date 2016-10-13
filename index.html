@@ -21,30 +21,32 @@
           </a>
         </div>
       </section>
-      <audio preload="auto" controls>
-      				<source src="./BlueDucks_FourFlossFiveSix.mp3">
-      				<source src="./BlueDucks_FourFlossFiveSix.ogg">
-      				<source src="./BlueDucks_FourFlossFiveSix.wav">
-      </audio>
+      <div class="audioplayer">
+        <audio preload="auto" controls="" style="width: 0px; height: 0px; visibility: hidden;">
+        				<source src="./BlueDucks_FourFlossFiveSix.mp3">
+        				<source src="./BlueDucks_FourFlossFiveSix.ogg">
+        				<source src="./BlueDucks_FourFlossFiveSix.wav">
+        </audio>
+        <div class="audioplayer-time audioplayer-time-current">00:00</div>
+        <div class="audioplayer-bar">
+          <div class="audioplayer-bar-loaded" style="width: 100%;"></div>
+          <div class="audioplayer-bar-played"></div>
+        </div>
+        <div class="audioplayer-time audioplayer-time-duration">00:56</div>
+      </div>
       <script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
       <script type="text/javascript" src="acplayer.js"></script>
       <script type="text/javascript">
       $(function(){
-        try {
-          var acplayer = $( 'audio' ).acPlayer();
-          $('#playpause').click(function(e){
-            if (acplayer.audioState == "paused") {
-              acplayer.play();
-            }
-            else{
-              acplayer.pause();
-            }
-          })
-        } catch (e) {
-          alert(e.name + ": " + e.message);
-        } finally {
-
-        }
+        var acplayer = $( 'audio' ).acPlayer();
+        $('#playpause').click(function(e){
+          if (acplayer.audioState == "paused") {
+            acplayer.play();
+          }
+          else{
+            acplayer.pause();
+          }
+        })
       });
       </script>
   </body>
