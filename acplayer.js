@@ -15,11 +15,6 @@
 		{
 			var hours = Math.floor( secs / 3600 ), minutes = Math.floor( secs % 3600 / 60 ), seconds = Math.ceil( secs % 3600 % 60 );
 			return ( hours == 0 ? '' : hours > 0 && hours.toString().length < 2 ? '0'+hours+':' : hours+':' ) + ( minutes.toString().length < 2 ? '0'+minutes : minutes ) + ':' + ( seconds.toString().length < 2 ? '0'+seconds : seconds );
-		},
-		canPlayType	  = function( file )
-		{
-			var audioElement = document.createElement( 'audio' );
-			return !!( audioElement.canPlayType && audioElement.canPlayType( 'audio/' + file.split( '.' ).pop().toLowerCase() + ';' ).replace( /no/, '' ) );
 		};
 
 		var AcPlayer = function(ele, opt) {
@@ -29,10 +24,7 @@
 					this.$imgRotate = $("#img-rotate"),
 					this.currentTime = 0,
 					this.defaults = {
-						classPrefix: 'audioplayer',
-						strPlay: 'Play',
-						strPause: 'Pause',
-						strVolume: 'Volume'
+						url:''
 					},
 					this.params = $.extend({}, this.defaults, opt),
 					this.audioState='paused';
@@ -95,25 +87,30 @@
 				}
 			},
 			 init: function() {
+				 var that = this;
 				this.$element.each( function()
 				 {
+					 that.theAudio = $(this).clone().get(0);
 					 var timeCurrent = $('.audioplayer-time-current'),
 					 timeDuration = $('.audioplayer-time-duration'),
 					 barLoaded = $('.audioplayer-bar-loaded'),
 					 barPlayed=$('.audioplayer-bar-played'),
 					 theBar=$('.audioplayer-bar'),
-						 theAudio = $(this).get(0),
+						 theAudio = that.theAudio,
 							 adjustCurrentTime = function( e )
 							 {
 								 var theRealEvent		 = isTouch ? e.originalEvent.touches[ 0 ] : e;
 								 theAudio.currentTime = Math.round( ( theAudio.duration * ( theRealEvent.pageX - theBar.offset().left ) ) / theBar.width() );
 							 },
-							 updateLoadBar = setInterval( function()
-							 {
-								 barLoaded.width( ( theAudio.buffered.end( 0 ) / theAudio.duration ) * 100 + '%' );
-								 if( theAudio.buffered.end( 0 ) >= theAudio.duration )
-									 clearInterval( updateLoadBar );
-							 }, 100 );
+							 updateLoadBar = function()
+								{
+									var interval = setInterval( function()
+									{
+										if( theAudio.buffered.length < 1 ) return true;
+										barLoaded.width( ( theAudio.buffered.end( 0 ) / theAudio.duration ) * 100 + '%' );
+										if( Math.floor( theAudio.buffered.end( 0 ) ) >= Math.floor( theAudio.duration ) ) clearInterval( interval );
+									}, 100 );
+								};
 
 
 						 timeDuration.html('&hellip;');
@@ -121,7 +118,8 @@
 
 						 theAudio.addEventListener('loadeddata', function()
 						 {
-							 timeDuration.html( secondsToTime( theAudio.duration ) );
+							 updateLoadBar();
+							 timeDuration.html( $.isNumeric( theAudio.duration ) ? secondsToTime( theAudio.duration ) : '&hellip;' );
 						 });
 
 						 theAudio.addEventListener( 'timeupdate', function()
@@ -130,18 +128,18 @@
 							 barPlayed.width( ( theAudio.currentTime / theAudio.duration ) * 100 + '%' );
 						 });
 						 theBar.on( eStart, function( e )
-						 				{
-						 					adjustCurrentTime( e );
-						 					theBar.on( eMove, function( e ) { adjustCurrentTime( e ); } );
-						 				})
-						 				.on( eCancel, function()
-						 				{
-						 					theBar.unbind( eMove );
-						 				});
+						 {
+						 		adjustCurrentTime( e );
+						 		theBar.on( eMove, function( e ) { adjustCurrentTime( e ); } );
+						 }).on( eCancel, function()
+						 {
+						 		theBar.unbind( eMove );
+						 });
+					  $(this).replaceWith( theAudio );
 				 });
 				 return this;
 			 }
-			 };
+			};
 	$.fn.acPlayer = function( options )
 	{
 		 //创建Beautifier的实体
