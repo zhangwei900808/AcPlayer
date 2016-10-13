@@ -26,7 +26,7 @@
 					this.$element = ele,
 					this.theAudio = ele.get(0),
 					this.$playpause = $('#playpause'),
-					this.$imgRotate= $("#img-rotate"),
+					this.$imgRotate = $("#img-rotate"),
 					this.currentTime = 0,
 					this.defaults = {
 						classPrefix: 'audioplayer',
@@ -35,25 +35,7 @@
 						strVolume: 'Volume'
 					},
 					this.params = $.extend({}, this.defaults, opt),
-						this.cssClass	= {},
-						this.cssClassSub =
-						{
-							playPause:	 	'playpause',
-							playing:		'playing',
-							time:		 	'time',
-							timeCurrent:	'time-current',
-							timeDuration: 	'time-duration',
-							bar: 			'bar',
-							barLoaded:		'bar-loaded',
-							barPlayed:		'bar-played',
-							volume:		 	'volume',
-							volumeButton: 	'volume-button',
-							volumeAdjust: 	'volume-adjust',
-							noVolume: 		'novolume',
-							mute: 			'mute',
-							mini: 			'mini'
-						};
-						this.audioState='paused';
+					this.audioState='paused';
 			}
 			AcPlayer.prototype = {
 			 play:function(){
@@ -119,16 +101,12 @@
 					 timeDuration = $('.audioplayer-time-duration'),
 					 barLoaded = $('.audioplayer-bar-loaded'),
 					 barPlayed=$('.audioplayer-bar-played'),
+					 theBar=$('.audioplayer-bar'),
 						 theAudio = $(this).get(0),
 							 adjustCurrentTime = function( e )
 							 {
-								 theRealEvent		 = isTouch ? e.originalEvent.touches[ 0 ] : e;
+								 var theRealEvent		 = isTouch ? e.originalEvent.touches[ 0 ] : e;
 								 theAudio.currentTime = Math.round( ( theAudio.duration * ( theRealEvent.pageX - theBar.offset().left ) ) / theBar.width() );
-							 },
-							 adjustVolume = function( e )
-							 {
-								 theRealEvent	= isTouch ? e.originalEvent.touches[ 0 ] : e;
-								 theAudio.volume = Math.abs( ( theRealEvent.pageY - ( volumeAdjuster.offset().top + volumeAdjuster.height() ) ) / volumeAdjuster.height() );
 							 },
 							 updateLoadBar = setInterval( function()
 							 {
@@ -137,18 +115,13 @@
 									 clearInterval( updateLoadBar );
 							 }, 100 );
 
-						 var volumeTestDefault = theAudio.volume, volumeTestValue = theAudio.volume = 0.111;
-						 if( Math.round( theAudio.volume * 1000 ) / 1000 == volumeTestValue ) theAudio.volume = volumeTestDefault;
-						 else thePlayer.addClass( that.cssClass.noVolume );
 
-						 timeDuration.html( '&hellip;' );
+						 timeDuration.html( secondsToTime( theAudio.duration) );
 						 timeCurrent.text( secondsToTime( 0 ) );
 
-						 theAudio.addEventListener( 'loadeddata', function()
+						 theAudio.addEventListener('loadeddata', function()
 						 {
 							 timeDuration.text( secondsToTime( theAudio.duration ) );
-							 volumeAdjuster.find( 'div' ).height( theAudio.volume * 100 + '%' );
-							 volumeDefault = theAudio.volume;
 						 });
 
 						 theAudio.addEventListener( 'timeupdate', function()
@@ -156,13 +129,19 @@
 							 timeCurrent.text( secondsToTime( theAudio.currentTime ) );
 							 barPlayed.width( ( theAudio.currentTime / theAudio.duration ) * 100 + '%' );
 						 });
-
+						 theBar.on( eStart, function( e )
+						 				{
+						 					adjustCurrentTime( e );
+						 					theBar.on( eMove, function( e ) { adjustCurrentTime( e ); } );
+						 				})
+						 				.on( eCancel, function()
+						 				{
+						 					theBar.unbind( eMove );
+						 				});
 				 });
 				 return this;
 			 }
 			 };
-
-
 	$.fn.acPlayer = function( options )
 	{
 		 //创建Beautifier的实体
