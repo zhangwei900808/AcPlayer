@@ -66,7 +66,7 @@
 						this.audioState='paused';
 					}
 			 },
-			 monitorCurrentTime(){
+			 monitorCurrentTime:function(){
 				 var that = this;
 				 clearInterval(this.ivl);
 				 this.ivl = setInterval(function(){
