@@ -2,9 +2,9 @@
 	AUTHOR: Osvaldas Valutis, www.osvaldas.info
 */
 //说明js是加载是正确的，接下来看看是哪里出了问题
-;(function( $, window, document, undefined )
++function ($)
 {
-	alert(111);
+	alert('linenum:'+7);
 	try {
 
 		var isTouch		  = 'ontouchstart' in window,
@@ -285,4 +285,5 @@
 
 	}
 
-})( jQuery, window, document );
+
+	}(jQuery);
