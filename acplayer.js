@@ -162,30 +162,6 @@
                     theBar.unbind(eMove);
                 });
 
-                volumeButton.on('click',
-                function() {
-                    if (thePlayer.hasClass(cssClass.muted)) {
-                        thePlayer.removeClass(cssClass.muted);
-                        theAudio.volume = volumeDefault;
-                    } else {
-                        thePlayer.addClass(cssClass.muted);
-                        volumeDefault = theAudio.volume;
-                        theAudio.volume = 0;
-                    }
-                    return false;
-                });
-
-                volumeAdjuster.on(eStart,
-                function(e) {
-                    adjustVolume(e);
-                    volumeAdjuster.on(eMove,
-                    function(e) {
-                        adjustVolume(e);
-                    });
-                }).on(eCancel,
-                function() {
-                    volumeAdjuster.unbind(eMove);
-                });
             } else thePlayer.addClass(cssClass.mini);
 
             thePlayer.addClass(isAutoPlay ? cssClass.playing: cssClass.stopped);
