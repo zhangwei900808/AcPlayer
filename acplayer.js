@@ -5,6 +5,7 @@
 
 +function ($)
 {
+	'use strict';
 	try {
 		var isTouch		  = 'ontouchstart' in window,
 			eStart		  = isTouch ? 'touchstart'	: 'mousedown',
