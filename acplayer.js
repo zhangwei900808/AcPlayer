@@ -5,6 +5,7 @@
 //说明js是加载是正确的，接下来看看是哪里出了问题
 ;(function( $, window, document, undefined )
 {
+	'use strict'
 	try {
 		var isTouch		  = 'ontouchstart' in window,
 			eStart		  = isTouch ? 'touchstart'	: 'mousedown',
@@ -267,7 +268,7 @@
 
 						 $this.replaceWith( thePlayer );
 					 });
-					 return that;
+					 return this;
 				 }
 				 };
 
