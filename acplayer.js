@@ -24,6 +24,7 @@
 
 		var AcPlayer = function(ele, opt) {
 					this.$element = ele,
+					this.theAudio = ele.get(0),
 					this.$playpause = $('#playpause'),
 					this.$imgRotate= $("#img-rotate"),
 					this.currentTime = 0,
@@ -114,7 +115,11 @@
 			 init: function() {
 				this.$element.each( function()
 				 {
-						var theAudio = $(this);
+					 var timeCurrent = $('.audioplayer-time-current'),
+					 timeDuration = $('.audioplayer-time-duration'),
+					 barLoaded = $('.audioplayer-bar-loaded'),
+					 barPlayed=$('.audioplayer-bar-played'),
+						 theAudio = $(this).get(0),
 							 adjustCurrentTime = function( e )
 							 {
 								 theRealEvent		 = isTouch ? e.originalEvent.touches[ 0 ] : e;
@@ -152,12 +157,6 @@
 							 barPlayed.width( ( theAudio.currentTime / theAudio.duration ) * 100 + '%' );
 						 });
 
-						 theAudio.addEventListener( 'volumechange', function()
-						 {
-							 volumeAdjuster.find( 'div' ).height( theAudio.volume * 100 + '%' );
-							 if( theAudio.volume > 0 && thePlayer.hasClass( that.cssClass.mute ) ) thePlayer.removeClass( that.cssClass.mute );
-							 if( theAudio.volume <= 0 && !thePlayer.hasClass( that.cssClass.mute ) ) thePlayer.addClass( that.cssClass.mute );
-						 });
 				 });
 				 return this;
 			 }
