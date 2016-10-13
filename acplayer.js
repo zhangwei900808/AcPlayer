@@ -24,7 +24,6 @@
 			};
 
 			var AcPlayer = function(ele, opt) {
-						that = this;
 						this.$element = ele,
 						this.$playpause = $('#playpause'),
 						this.$imgRotate= $("#img-rotate"),
@@ -86,33 +85,35 @@
 						}
 				 },
 				 monitorCurrentTime(){
+					 var that = this;
 					 clearInterval(this.ivl);
 					 this.ivl = setInterval(function(){
-								that.currentTime = that.theAudio.currentTime;
-								if(that.theAudio.ended){
-									that.theAudio.currentTime=0;
-									clearInterval(that.ivl);
-									that.$imgRotate.css({
+								this.currentTime = this.theAudio.currentTime;
+								if(this.theAudio.ended){
+									this.theAudio.currentTime=0;
+									clearInterval(this.ivl);
+									this.$imgRotate.css({
 										'webkitAnimationPlayState':'paused'
 									});
-									that.$imgRotate.removeClass('rotate-img');
-									that.$playpause.removeClass('acplayer-playing').addClass('acplayer-paused');
-									that.audioState='paused';
+									this.$imgRotate.removeClass('rotate-img');
+									this.$playpause.removeClass('acplayer-playing').addClass('acplayer-paused');
+									this.audioState='paused';
 								}
-								console.log(that.currentTime)
-								return that.currentTime;
+								console.log(this.currentTime)
+								return this.currentTime;
 					},100)
 				},
 				getCurrentTime:function(){
-					return that.theAudio.currentTime;
+					return this.theAudio.currentTime;
 				},
 				toTheTime:function(time){
-					if(time <= that.theAudio.duration)
+					if(time <= this.theAudio.duration)
 					{
-						that.theAudio.currentTime = time;
+						this.theAudio.currentTime = time;
 					}
 				},
 				 init: function() {
+					 var that = this;
 					 for( var subName in this.cssClassSub )
 						 this.cssClass[ subName ] = this.params.classPrefix + '-' + this.cssClassSub[ subName ];
 
