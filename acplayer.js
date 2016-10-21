@@ -63,16 +63,6 @@
 				 clearInterval(this.ivl);
 				 this.ivl = setInterval(function(){
 							that.currentTime = that.theAudio.currentTime;
-							if(that.theAudio.ended){
-								that.theAudio.currentTime=0;
-								clearInterval(that.ivl);
-								that.$imgRotate.css({
-									'webkitAnimationPlayState':'paused'
-								});
-								that.$imgRotate.removeClass('rotate-img');
-								that.$playpause.removeClass('acplayer-playing').addClass('acplayer-paused');
-								that.audioState='paused';
-							}
 							console.log(that.currentTime)
 							return that.currentTime;
 				},100)
@@ -127,6 +117,16 @@
 							 timeCurrent.html( secondsToTime( theAudio.currentTime ) );
 							 barPlayed.width( ( theAudio.currentTime / theAudio.duration ) * 100 + '%' );
 						 });
+
+						 theAudio.addEventListener('ended', function() {
+								 that.$imgRotate.css({
+									 'webkitAnimationPlayState':'paused'
+								 });
+								 that.$imgRotate.removeClass('rotate-img');
+								 that.$playpause.removeClass('acplayer-playing').addClass('acplayer-paused');
+								 that.audioState='paused';
+							}, true);
+
 						 theBar.on( eStart, function( e )
 						 {
 						 		adjustCurrentTime( e );
