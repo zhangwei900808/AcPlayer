@@ -28,14 +28,16 @@
        </audio>
         <div class="audioplayer-time audioplayer-time-current"></div>
         <div class="audioplayer-bar">
-          <div class="audioplayer-bar-loaded" style="width: 100%;"></div>
-          <div class="audioplayer-bar-played"></div>
+          <div class="audioplayer-bar-content">
+            <div class="audioplayer-bar-loaded" style="width: 100%;"></div>
+            <div class="audioplayer-bar-played"></div>
+          </div>
         </div>
         <div class="audioplayer-time audioplayer-time-duration"></div>
       </div>
       <script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
       <script type="text/javascript" src="acplayer.js"></script>
-      <script type="text/javascript">	  
+      <script type="text/javascript">
       $(function(){
         try {
           var acplayer = $( 'audio' ).acPlayer();
